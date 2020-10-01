@@ -1,3 +1,4 @@
+// Define Variables and server listen port defined
 var express = require('express');
 var _ = require('underscore');
 var app = express();
@@ -7,6 +8,7 @@ var nodes = { };
 var usernames = {};
 server.listen(process.env.PORT || 3000);
 
+// App use setting 
 app.set('view engine', 'ejs');
 app.set('view options', { layout: false });
 app.use(express.methodOverride());
@@ -14,10 +16,12 @@ app.use(express.bodyParser());
 app.use(app.router);
 app.use('/public', express.static('public'));
 
+// App Get
 app.get('/', function (req, res) {
   res.render('index');
 });
 
+// User connect actions
 io.sockets.on('connection', function(socket) {
 	socket.on('sendchat', function (data) {
 		io.sockets.emit('updatechat', socket.username, data);
